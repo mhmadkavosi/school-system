@@ -5,6 +5,9 @@
   "repository": "https://github.com/mhmadkavosi/school-system.git",
   "author": "Mohammad Kavosi <mhmad.kavosi@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
