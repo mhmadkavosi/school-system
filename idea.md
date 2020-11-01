@@ -11,4 +11,9 @@
 * Student : 
     * Can go to one class
     * Can do quiz
- 
+
+How to work : 
+make a refrence for user and teacher in quizModel
+we check user type with JWT
+check user class JWT (user is authorize for this exam)
+check user quiz JWT (user is authorize for this class and exam)
