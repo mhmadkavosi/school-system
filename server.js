@@ -3,6 +3,8 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
+const questionRoute = require('./api/routes/questionRoute');
+
 dotenv.config({ path: "./config.env" });
 
 const app = express();
@@ -27,6 +29,6 @@ app.listen(port, () => {
 });
 
 
-app.use('/', (req, res, next) => {
-    res.send("Hello World!");
-});
+
+// ROUTEs
+app.use('/api/v1/question', questionRoute);
