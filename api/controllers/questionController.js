@@ -1,12 +1,11 @@
-const Question = require('./../models/questionModel');
-
+const Question = require("./../models/questionModel");
 
 exports.addQuestion = async (req, res, next) => {
-    try {
-        const doc = await Question.create(req.body);
-        res.status(201).json({
-            status: "success",
-            question: {
+  try {
+    const doc = await Question.create(req.body);
+    res.status(201).json({
+      status: "success",
+      question: {
         doc,
       },
     });
@@ -41,7 +40,7 @@ exports.getAllQuestion = async (req, res, next) => {
       message: "Some Thing went wrong",
       error,
     });
-            }
+  }
 };
 
 exports.getOneQuestion = async (req, res, next) => {
@@ -53,15 +52,15 @@ exports.getOneQuestion = async (req, res, next) => {
     res.status(200).json({
       status: "success",
       doc,
-        });
+    });
     next();
-    } catch (error) {
+  } catch (error) {
     res.status(500).json({
       status: "fail",
       message: "Some Thing went wrong",
       error,
     });
-    }
+  }
 };
 
 exports.deleteOneQuestion = async (req, res, next) => {
@@ -85,5 +84,5 @@ exports.deleteOneQuestion = async (req, res, next) => {
       message: "Some Thing went wrong",
       error,
     });
-}
+  }
 };
