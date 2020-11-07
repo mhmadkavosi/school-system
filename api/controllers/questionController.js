@@ -63,5 +63,27 @@ exports.getOneQuestion = async (req, res, next) => {
     });
     }
 };
+
+exports.deleteOneQuestion = async (req, res, next) => {
+  try {
+    const doc = await Question.findByIdAndDelete(req.params.id);
+
+    if (!doc)
+      return res.status(404).json({
+        status: "fail",
+        message: "There is no document with that ID",
+      });
+
+    res.status(204).json({
+      status: "success",
+      data: null,
+    });
     next();
+  } catch (error) {
+    res.status(500).json({
+      status: "fail",
+      message: "Some Thing went wrong",
+      error,
+    });
 }
+};
