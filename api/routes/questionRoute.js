@@ -5,9 +5,16 @@ const questionController = require('./../controllers/questionController');
 const router = express.Router();
 
 
-router.route('/').get(questionController.getAllQuestion).post(questionController.addQuestion);
+router
+    .route('/')
+    .get(questionController.getAllQuestion)
+    .post(questionController.addQuestion);
 
-router.route('/:id').get(questionController.getOneQuestion).delete(questionController.deleteOneQuestion);
+router
+    .route('/:id')
+    .get(questionController.getOneQuestion)
+    .delete(questionController.deleteOneQuestion)
+    .patch(questionController.updateQuestion);
 
 
 module.exports = router;
