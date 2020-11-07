@@ -7,7 +7,18 @@ exports.addQuestion = async (req, res, next) => {
         res.status(201).json({
             status: "success",
             question: {
-                doc
+        doc,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "fail",
+      message: "Some Thing went wrong",
+      error,
+    });
+  }
+  next();
+};
             }
         });
     } catch (error) {
