@@ -43,9 +43,25 @@ exports.getAllQuestion = async (req, res, next) => {
     });
             }
 };
+
+exports.getOneQuestion = async (req, res, next) => {
+  try {
+    const doc = await Question.findById(req.params.id);
+
+    // TODO send 404 error
+
+    res.status(200).json({
+      status: "success",
+      doc,
         });
+    next();
     } catch (error) {
-        res.status(500).json({ error });
+    res.status(500).json({
+      status: "fail",
+      message: "Some Thing went wrong",
+      error,
+    });
     }
+};
     next();
 }
