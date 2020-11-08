@@ -3,7 +3,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
-const questionRoute = require('./api/routes/questionRoute');
+const quizRoute = require('./api/routes/quizRoute');
 
 dotenv.config({ path: "./config.env" });
 
@@ -31,4 +31,4 @@ app.listen(port, () => {
 
 
 // ROUTEs
-app.use('/api/v1/question', questionRoute);
+app.use('/api/v1/quiz', quizRoute);
