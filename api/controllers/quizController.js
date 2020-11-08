@@ -1,11 +1,11 @@
-const Question = require("./../models/questionModel");
+const Quiz = require("../models/quizModel");
 
-exports.addQuestion = async(req, res, next) => {
+exports.addQuiz = async(req, res, next) => {
     try {
-        const doc = await Question.create(req.body);
+        const doc = await Quiz.create(req.body);
         res.status(201).json({
             status: "success",
-            question: {
+            Quiz: {
                 doc,
             },
         });
@@ -19,9 +19,9 @@ exports.addQuestion = async(req, res, next) => {
     next();
 };
 
-exports.getAllQuestion = async(req, res, next) => {
+exports.getAllQuiz = async(req, res, next) => {
     try {
-        const doc = await Question.find();
+        const doc = await Quiz.find();
 
         if (!doc)
             return res.status(404).json({
@@ -29,7 +29,7 @@ exports.getAllQuestion = async(req, res, next) => {
             });
         res.status(200).json({
             status: "success",
-            question: {
+            Quiz: {
                 doc,
             },
         });
@@ -43,9 +43,9 @@ exports.getAllQuestion = async(req, res, next) => {
     }
 };
 
-exports.getOneQuestion = async(req, res, next) => {
+exports.getOneQuiz = async(req, res, next) => {
     try {
-        const doc = await Question.findById(req.params.id);
+        const doc = await Quiz.findById(req.params.id);
 
         // TODO send 404 error
 
@@ -63,9 +63,9 @@ exports.getOneQuestion = async(req, res, next) => {
     }
 };
 
-exports.updateQuestion = async(req, res, next) => {
+exports.updateQuiz = async(req, res, next) => {
     try {
-        const doc = await Question.findByIdAndUpdate(req.params.id, req.body, {
+        const doc = await Quiz.findByIdAndUpdate(req.params.id, req.body, {
             new: true,
             runValidators: true
         });
@@ -83,9 +83,9 @@ exports.updateQuestion = async(req, res, next) => {
 }
 
 
-exports.deleteOneQuestion = async(req, res, next) => {
+exports.deleteOneQuiz = async(req, res, next) => {
     try {
-        const doc = await Question.findByIdAndDelete(req.params.id);
+        const doc = await Quiz.findByIdAndDelete(req.params.id);
 
         if (!doc)
             return res.status(404).json({
