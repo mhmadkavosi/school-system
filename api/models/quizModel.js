@@ -1,12 +1,17 @@
 const mongoose = require('mongoose');
 
-const questionSchema = new mongoose.Schema({    
-    question: {
+const quizSchema = new mongoose.Schema({
+    quizName: {
         type: String,
-        required: [true, 'Question can not be empty'],
+        required: true
     },
-    answers: [
-        {
+    quizClass: String, // TODO make a refrence to class model 
+    quizQuestions: [{
+        question: {
+            type: String,
+            required: [true, 'Question can not be empty'],
+        },
+        answers: [{
             text: {
                 type: String,
                 required: true,
@@ -17,8 +22,9 @@ const questionSchema = new mongoose.Schema({
                 required: true,
                 default: false
             }
-        }
-    ],
+        }],
+
+    }],
     created_at: {
         type: Date,
         default: Date.now()
@@ -28,6 +34,6 @@ const questionSchema = new mongoose.Schema({
 
 
 
-const Question = mongoose.model('Question', questionSchema);
+const Quiz = mongoose.model('Quiz', quizSchema);
 
-module.exports = Question;
+module.exports = Quiz;
