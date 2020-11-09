@@ -36,6 +36,9 @@
     * sms sender
     * two factor authentication
     * student and teacher can chat (NOT IMPORTANT YET!!!!)
+    * use redis for authenticated user with phone number
+    * make a soulition for quiz like have excel sheet example and starter file for make question and asnwers in excel and uploaded in website
+    * take care of securty
 
 How to work : 
 make a refrence for user and teacher in quizModel
