@@ -11,15 +11,12 @@ const studentSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        unique: true
     },
     phoneNumber: {
         type: Number, // TODO set it for valid phoneNmber
-        unique: true
     },
     natilonalNumber: {
         type: Number, // TODO set it for valid natilonalNumber 
-        unique: true
     },
     photo: String,
     active: {
