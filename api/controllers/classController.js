@@ -20,3 +20,27 @@ exports.addClass = async(req, res, next) => {
     next();
 };
 
+exports.getAllClass = async(req, res, next) => {
+    try {
+        const doc = await Class.find().populate('classTeacher classStudents classBook');
+
+        if (!doc)
+            return res.status(404).json({
+                message: "There is no document yet",
+            });
+        res.status(200).json({
+            status: "success",
+            Class: {
+                doc,
+            },
+        });
+        next();
+    } catch (error) {
+        res.status(500).json({
+            status: "fail",
+            message: "Some Thing went wrong",
+            error,
+        });
+    }
+};
+
