@@ -4,6 +4,10 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
 const quizRoute = require('./api/routes/quizRoute');
+const bookRoute = require('./api/routes/bookRoute');
+const classRoute = require('./api/routes/classRoute');
+const studentRoute = require('./api/routes/studentRoute');
+const teacherRoute = require('./api/routes/teacherRoute');
 
 dotenv.config({ path: "./config.env" });
 
@@ -32,3 +36,7 @@ app.listen(port, () => {
 
 // ROUTEs
 app.use('/api/v1/quiz', quizRoute);
+app.use('/api/v1/book', bookRoute);
+app.use('/api/v1/class', classRoute);
+app.use('/api/v1/student', studentRoute);
+app.use('/api/v1/teacher', teacherRoute);
