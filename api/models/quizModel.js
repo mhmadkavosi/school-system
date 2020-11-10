@@ -26,6 +26,10 @@ const quizSchema = new mongoose.Schema({
                 default: false
             }
         }],
+        score: {
+            type: String,
+            required: [true, 'Question can not be with out score'],
+        },
 
     }],
     created_at: {
