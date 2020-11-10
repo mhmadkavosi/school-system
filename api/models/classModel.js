@@ -2,9 +2,18 @@ const mongoose = require('mongoose');
 
 const classSchema = new mongoose.Schema({
     className: String,
-    classTeacher: String, // TODO refrence to teacher model
-    classStudents: [String], // TODO refrence to student model
-    classBook: String, // TODO refrence to book model
+    classTeacher: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Teacher'
+    },
+    classStudents: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Student'
+    }],
+    classBook: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Book'
+    },
     // quizHistory: [String], // TODO make a method for class to have a page for history of quizes 
     startDate: Date,
     endDate: Date,
