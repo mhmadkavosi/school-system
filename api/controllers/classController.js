@@ -84,3 +84,26 @@ exports.updateClass = async(req, res, next) => {
 }
 
 
+exports.deleteOneClass = async(req, res, next) => {
+    try {
+        const doc = await Class.findByIdAndDelete(req.params.id);
+
+        if (!doc)
+            return res.status(404).json({
+                status: "fail",
+                message: "There is no document with that ID",
+            });
+
+        res.status(204).json({
+            status: "success",
+            data: null,
+        });
+        next();
+    } catch (error) {
+        res.status(500).json({
+            status: "fail",
+            message: "Some Thing went wrong",
+            error,
+        });
+    }
+};
