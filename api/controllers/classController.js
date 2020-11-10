@@ -64,3 +64,23 @@ exports.getOneClass = async(req, res, next) => {
     }
 };
 
+exports.updateClass = async(req, res, next) => {
+    try {
+        const doc = await Class.findByIdAndUpdate(req.params.id, req.body, {
+            new: true,
+            runValidators: true
+        });
+        res.status(200).json({
+            status: "success",
+            doc
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: "fail",
+            message: "some Thing went wrong",
+            error
+        })
+    }
+}
+
+
