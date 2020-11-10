@@ -5,7 +5,10 @@ const quizSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    quizClass: String, // TODO make a refrence to class model 
+    quizClass: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Class'
+    },
     quizQuestions: [{
         question: {
             type: String,
