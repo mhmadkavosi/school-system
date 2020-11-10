@@ -17,3 +17,29 @@ exports.addStudent = async(req, res, next) => {
             error,
         });
     }
+    next();
+};
+
+exports.getAllStudent = async(req, res, next) => {
+    try {
+        const doc = await Student.find();
+
+        if (!doc)
+            return res.status(404).json({
+                message: "There is no document yet",
+            });
+        res.status(200).json({
+            status: "success",
+            Student: {
+                doc,
+            },
+        });
+        next();
+    } catch (error) {
+        res.status(500).json({
+            status: "fail",
+            message: "Some Thing went wrong",
+            error,
+        });
+    }
+};
