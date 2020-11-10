@@ -44,3 +44,23 @@ exports.getAllClass = async(req, res, next) => {
     }
 };
 
+exports.getOneClass = async(req, res, next) => {
+    try {
+        const doc = await Class.findById(req.params.id);
+
+        // TODO send 404 error
+
+        res.status(200).json({
+            status: "success",
+            doc,
+        });
+        next();
+    } catch (error) {
+        res.status(500).json({
+            status: "fail",
+            message: "Some Thing went wrong",
+            error,
+        });
+    }
+};
+
