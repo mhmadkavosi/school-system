@@ -20,3 +20,26 @@ exports.addBook = async(req, res, next) => {
     next();
 };
 
+exports.getAllBook = async(req, res, next) => {
+    try {
+        const doc = await Book.find();
+
+        if (!doc)
+            return res.status(404).json({
+                message: "There is no document yet",
+            });
+        res.status(200).json({
+            status: "success",
+            Book: {
+                doc,
+            },
+        });
+        next();
+    } catch (error) {
+        res.status(500).json({
+            status: "fail",
+            message: "Some Thing went wrong",
+            error,
+        });
+    }
+};
