@@ -19,3 +19,28 @@ exports.addTeacher = async(req, res, next) => {
     }
     next();
 };
+
+
+exports.getAllTeacher = async(req, res, next) => {
+    try {
+        const doc = await Teacher.find();
+
+        if (!doc)
+            return res.status(404).json({
+                message: "There is no document yet",
+            });
+        res.status(200).json({
+            status: "success",
+            Teacher: {
+                doc,
+            },
+        });
+        next();
+    } catch (error) {
+        res.status(500).json({
+            status: "fail",
+            message: "Some Thing went wrong",
+            error,
+        });
+    }
+};
