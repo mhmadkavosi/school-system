@@ -22,6 +22,7 @@ const classSchema = new mongoose.Schema({
         default: Date.now()
     },
     status: Boolean, // set for active or inActive of class | show in frontEnd
+    slug : String
 });
 
 
