@@ -21,7 +21,10 @@ const teacherSchema = new mongoose.Schema({
         type: Number, // TODO set it for valid natilonalNumber 
         unique: true
     },
-    photo: String,
+    images: {
+        type: [String],
+        default: "no-photo.jpg"
+    },
     active: {
         type: Boolean,
         default: true,

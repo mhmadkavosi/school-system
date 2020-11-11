@@ -18,7 +18,10 @@ const studentSchema = new mongoose.Schema({
     natilonalNumber: {
         type: Number, // TODO set it for valid natilonalNumber 
     },
-    photo: String,
+    images: {
+        type: [String],
+        default: "no-photo.jpg"
+    },
     active: {
         type: Boolean,
         default: true,

@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 
 const bookSchema = new mongoose.Schema({
     bookName: String,
-    images: [String],
+    images: {
+        type: [String],
+        default: "no-photo.jpg"
+    },
     description: String,
 });
 
