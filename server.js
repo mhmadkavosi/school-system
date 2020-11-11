@@ -13,10 +13,11 @@ dotenv.config({ path: "./config.env" });
 
 const app = express();
 
+//  Middlewares
 app.use(express.json());
 app.use(morgan('dev'));
 
-
+// Conect to the database
 const db = process.env.LOCAL_DATABASE;
 
 mongoose.connect(db, {
@@ -26,6 +27,8 @@ mongoose.connect(db, {
     useUnifiedTopology: true
 }).then(() => console.log("Database was successfuly connected....!"));
 
+
+// Create server
 const port = process.env.PORT;
 
 app.listen(port, () => {
@@ -41,6 +44,8 @@ app.use('/api/v1/class', classRoute);
 app.use('/api/v1/student', studentRoute);
 app.use('/api/v1/teacher', teacherRoute);
 
+
+// Unhandled routes
 app.all('*', (req, res, next) => {
     res.status(404).json({
         status: "fail",
