@@ -25,8 +25,8 @@ exports.getAllBook = async(req, res, next) => {
         const doc = await Book.find();
 
         if (!doc)
-            return res.status(404).json({
-                message: "There is no document yet",
+            return res.status(400).json({
+                status: "fail"
             });
         res.status(200).json({
             status: "success",

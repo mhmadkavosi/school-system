@@ -24,7 +24,7 @@ exports.getAllQuiz = async(req, res, next) => {
         const doc = await Quiz.find();
 
         if (!doc)
-            return res.status(404).json({
+            return res.status(400).json({
                 message: "There is no document yet",
             });
         res.status(200).json({
@@ -47,7 +47,11 @@ exports.getOneQuiz = async(req, res, next) => {
     try {
         const doc = await Quiz.findById(req.params.id);
 
-        // TODO send 404 error
+        if (!doc) {
+            return res.status(400).json({
+                status: "flase"
+            })
+        }
 
         res.status(200).json({
             status: "success",
@@ -69,6 +73,11 @@ exports.updateQuiz = async(req, res, next) => {
             new: true,
             runValidators: true
         });
+        if (!doc) {
+            return res.status(400).json({
+                status: "flase"
+            })
+        }
         res.status(200).json({
             status: "success",
             doc
@@ -88,9 +97,8 @@ exports.deleteOneQuiz = async(req, res, next) => {
         const doc = await Quiz.findByIdAndDelete(req.params.id);
 
         if (!doc)
-            return res.status(404).json({
+            return res.status(400).json({
                 status: "fail",
-                message: "There is no document with that ID",
             });
 
         res.status(204).json({

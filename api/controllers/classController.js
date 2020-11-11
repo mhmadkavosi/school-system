@@ -25,7 +25,7 @@ exports.getAllClass = async(req, res, next) => {
         const doc = await Class.find().populate('classTeacher classStudents classBook');
 
         if (!doc)
-            return res.status(404).json({
+            return res.status(400).json({
                 message: "There is no document yet",
             });
         res.status(200).json({
@@ -48,7 +48,11 @@ exports.getOneClass = async(req, res, next) => {
     try {
         const doc = await Class.findById(req.params.id);
 
-        // TODO send 404 error
+        if (!doc) {
+            return res.status(400).json({
+                status: "flase"
+            })
+        }
 
         res.status(200).json({
             status: "success",
@@ -70,6 +74,11 @@ exports.updateClass = async(req, res, next) => {
             new: true,
             runValidators: true
         });
+        if (!doc) {
+            return res.status(400).json({
+                status: "flase"
+            })
+        }
         res.status(200).json({
             status: "success",
             doc
@@ -89,7 +98,7 @@ exports.deleteOneClass = async(req, res, next) => {
         const doc = await Class.findByIdAndDelete(req.params.id);
 
         if (!doc)
-            return res.status(404).json({
+            return res.status(400).json({
                 status: "fail",
                 message: "There is no document with that ID",
             });
