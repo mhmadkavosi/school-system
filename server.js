@@ -40,3 +40,10 @@ app.use('/api/v1/book', bookRoute);
 app.use('/api/v1/class', classRoute);
 app.use('/api/v1/student', studentRoute);
 app.use('/api/v1/teacher', teacherRoute);
+
+app.all('*', (req, res, next) => {
+    res.status(404).json({
+        status: "fail",
+        message: `Can't finde ${req.originalUrl} on this server`
+    });
+});
