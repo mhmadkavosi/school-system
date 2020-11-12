@@ -1,47 +1,28 @@
 const Quiz = require("../models/quizModel");
+const AppError = require("../utils/appError");
+const catchAsync = require("../utils/catchAsync");
 
-exports.addQuiz = async(req, res, next) => {
-    try {
-        const doc = await Quiz.create(req.body);
-        res.status(201).json({
-            status: "success",
-            Quiz: {
-                doc,
-            },
-        });
-    } catch (error) {
-        res.status(500).json({
-            status: "fail",
-            message: "Some Thing went wrong",
-            error,
-        });
-    }
+exports.addQuiz = catchAsync(async(req, res, next) => {
+    const doc = await Quiz.create(req.body);
+    res.status(201).json({
+        status: "success",
+        Quiz: {
+            doc,
+        },
+    });
     next();
-};
+});
 
-exports.getAllQuiz = async(req, res, next) => {
-    try {
-        const doc = await Quiz.find();
-
-        if (!doc)
-            return res.status(400).json({
-                message: "There is no document yet",
-            });
-        res.status(200).json({
-            status: "success",
-            Quiz: {
-                doc,
-            },
-        });
-        next();
-    } catch (error) {
-        res.status(500).json({
-            status: "fail",
-            message: "Some Thing went wrong",
-            error,
-        });
-    }
-};
+exports.getAllQuiz = catchAsync(async(req, res, next) => {
+    const doc = await Quiz.find();
+    res.status(200).json({
+        status: "success",
+        Quiz: {
+            doc,
+        },
+    });
+    next();
+});
 
 exports.getOneQuiz = async(req, res, next) => {
     try {
