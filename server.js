@@ -49,7 +49,7 @@ app.use('/api/v1/teacher', teacherRoute);
 
 // Unhandled routes
 app.all('*', (req, res, next) => {
-    next(new AppError(`Cant't fine ${req.originalUrl} on this server!`, 404));
+    next(new AppError(`Cant't find ${req.originalUrl} on this server!`, 404));
 });
 
 // use global handler Middleware for handel errors
