@@ -53,4 +53,4 @@ app.all('*', (req, res, next) => {
 });
 
 // use global handler Middleware for handel errors
-app.uee(globalErrorHandler);
+app.use(globalErrorHandler);
