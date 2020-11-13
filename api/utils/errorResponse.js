@@ -1,4 +1,4 @@
-// class AppError extends Error {
+// class errorResponse extends Error {
 //     constructor(message, statusCode) {
 //         super(message);
 
@@ -13,7 +13,7 @@
 //     }
 // }
 
-// module.exports = AppError;
+// module.exports = errorResponse;
 
 
 class ErrorRespons extends Error {
