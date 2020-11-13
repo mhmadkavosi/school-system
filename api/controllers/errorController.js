@@ -39,14 +39,24 @@
 //         sendErrorProd(err, res);
 //     }
 // }
+const ErrorRespons = require('../utils/errorResponse');
 
 const errorHandler = (err, req, res, next) => {
-    // log the console for dev
-    console.log(err.stack);
+    let error = {...err };
 
-    res.status(err.statusCode || 500).json({
+    error.message = err.message;
+
+    // log the console for dev
+    // console.log(err.stack);
+
+    // Mongoose bad ObjectId
+    if (err.name === 'CastError') {
+        const message = `Resource not found with id of ${err.value}`;
+        error = new ErrorRespons(message, 404);
+    }
+    res.status(error.statusCode || 500).json({
         status: false,
-        error: err.message || "Server Error"
+        error: error.message || "Server Error"
     })
 }
 
