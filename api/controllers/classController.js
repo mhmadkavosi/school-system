@@ -1,3 +1,4 @@
+const ErrorRespons = require('./../utils/appError');
 const Class = require('../models/classModel');
 
 
@@ -49,9 +50,7 @@ exports.getOneClass = async(req, res, next) => {
         const doc = await Class.findById(req.params.id);
 
         if (!doc) {
-            return res.status(400).json({
-                status: "flase"
-            })
+            return next(new ErrorRespons(`Class not found with id of : ${req.params.id} `, 404));
         }
 
         res.status(200).json({
@@ -59,12 +58,8 @@ exports.getOneClass = async(req, res, next) => {
             doc,
         });
         next();
-    } catch (error) {
-        res.status(500).json({
-            status: "fail",
-            message: "Some Thing went wrong",
-            error,
-        });
+    } catch (err) {
+        next(new ErrorRespons(`Class not found with id of : ${req.params.id} `, 404));
     }
 };
 
