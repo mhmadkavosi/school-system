@@ -3,8 +3,8 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
-const AppError = require('./api/utils/appError');
-const globalErrorHandler = require('./api/controllers/errorController');
+
+const errorHandler = require('./api/controllers/errorController');
 const quizRoute = require('./api/routes/quizRoute');
 const bookRoute = require('./api/routes/bookRoute');
 const classRoute = require('./api/routes/classRoute');
@@ -54,4 +54,4 @@ app.use('/api/v1/teacher', teacherRoute);
 // });
 
 // use global handler Middleware for handel errors
-app.use(globalErrorHandler);
+app.use(errorHandler);
