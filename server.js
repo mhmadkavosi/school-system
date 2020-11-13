@@ -50,7 +50,7 @@ app.use('/api/v1/teacher', teacherRoute);
 // Unhandled routes
 // FIXME: Send (Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client) to console 
 // app.all('*', (req, res, next) => {
-//     next(new AppError(`Cant't find ${req.originalUrl} on this server!`, 404));
+//     next(new errorResponse(`Cant't find ${req.originalUrl} on this server!`, 404));
 // });
 
 // use global handler Middleware for handel errors

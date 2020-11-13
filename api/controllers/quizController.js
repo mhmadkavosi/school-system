@@ -1,5 +1,5 @@
 const Quiz = require("../models/quizModel");
-const AppError = require("../utils/appError");
+const errorResponse = require("../utils/errorResponse");
 const catchAsync = require("../utils/catchAsync");
 
 exports.addQuiz = catchAsync(async(req, res, next) => {
