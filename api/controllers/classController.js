@@ -1,4 +1,4 @@
-const ErrorRespons = require('./../utils/appError');
+const ErrorRespons = require('./../utils/errorResponse');
 const Class = require('../models/classModel');
 
 
@@ -11,14 +11,9 @@ exports.addClass = async(req, res, next) => {
                 doc,
             },
         });
-    } catch (error) {
-        res.status(500).json({
-            status: "fail",
-            message: "Some Thing went wrong",
-            error,
-        });
+    } catch (err) {
+        next(err);
     }
-    next();
 };
 
 exports.getAllClass = async(req, res, next) => {
@@ -36,12 +31,8 @@ exports.getAllClass = async(req, res, next) => {
             },
         });
         next();
-    } catch (error) {
-        res.status(500).json({
-            status: "fail",
-            message: "Some Thing went wrong",
-            error,
-        });
+    } catch (err) {
+        next(err);
     }
 };
 
@@ -57,9 +48,8 @@ exports.getOneClass = async(req, res, next) => {
             status: "success",
             doc,
         });
-        next();
     } catch (err) {
-        next(new ErrorRespons(`Class not found with id of : ${req.params.id} `, 404));
+        next(err);
     }
 };
 
@@ -70,20 +60,14 @@ exports.updateClass = async(req, res, next) => {
             runValidators: true
         });
         if (!doc) {
-            return res.status(400).json({
-                status: "flase"
-            })
+            return next(new ErrorRespons(`Class not found with id of : ${req.params.id} `, 404));
         }
         res.status(200).json({
             status: "success",
             doc
         });
-    } catch (error) {
-        res.status(500).json({
-            status: "fail",
-            message: "some Thing went wrong",
-            error
-        })
+    } catch (err) {
+        next(err);
     }
 }
 
@@ -92,22 +76,16 @@ exports.deleteOneClass = async(req, res, next) => {
     try {
         const doc = await Class.findByIdAndDelete(req.params.id);
 
-        if (!doc)
-            return res.status(400).json({
-                status: "fail",
-                message: "There is no document with that ID",
-            });
+        if (!doc) {
+            return next(new ErrorRespons(`Class not found with id of : ${req.params.id} `, 404));
+        }
 
         res.status(204).json({
             status: "success",
             data: null,
         });
         next();
-    } catch (error) {
-        res.status(500).json({
-            status: "fail",
-            message: "Some Thing went wrong",
-            error,
-        });
+    } catch (err) {
+        next(err);
     }
 };
