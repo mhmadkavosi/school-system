@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const slugify = require('slugify');
 
 const classSchema = new mongoose.Schema({
     className: String,
@@ -22,10 +23,13 @@ const classSchema = new mongoose.Schema({
         default: Date.now()
     },
     status: Boolean, // set for active or inActive of class | show in frontEnd
-    slug : String
+    slug: String
 });
 
-
+classSchema.pre('save', function(next) {
+    this.slug = slugify(this.name, { lower: true });
+    next();
+});
 
 const Class = mongoose.model("Class", classSchema);
 
