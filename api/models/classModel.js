@@ -26,6 +26,7 @@ const classSchema = new mongoose.Schema({
     slug: String
 });
 
+// Create class slug from name 
 classSchema.pre('save', function(next) {
     this.slug = slugify(this.name, { lower: true });
     next();
