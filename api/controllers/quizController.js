@@ -1,8 +1,8 @@
 const Quiz = require("../models/quizModel");
-const errorResponse = require("../utils/errorResponse");
-const catchAsync = require("../utils/catchAsync");
+const ErrorResponse = require("../utils/errorResponse");
+const asyncHandler = require("../utils/asyncHandler");
 
-exports.addQuiz = catchAsync(async(req, res, next) => {
+exports.addQuiz = asyncHandler(async(req, res, next) => {
     const doc = await Quiz.create(req.body);
     res.status(201).json({
         status: "success",
@@ -13,7 +13,7 @@ exports.addQuiz = catchAsync(async(req, res, next) => {
     next();
 });
 
-exports.getAllQuiz = catchAsync(async(req, res, next) => {
+exports.getAllQuiz = asyncHandler(async(req, res, next) => {
     const doc = await Quiz.find();
     res.status(200).json({
         status: "success",
@@ -24,74 +24,39 @@ exports.getAllQuiz = catchAsync(async(req, res, next) => {
     next();
 });
 
-exports.getOneQuiz = async(req, res, next) => {
-    try {
-        const doc = await Quiz.findById(req.params.id);
-
-        if (!doc) {
-            return res.status(400).json({
-                status: "flase"
-            })
-        }
-
-        res.status(200).json({
-            status: "success",
-            doc,
-        });
-        next();
-    } catch (error) {
-        res.status(500).json({
-            status: "fail",
-            message: "Some Thing went wrong",
-            error,
-        });
+exports.getOneQuiz = asyncHandler(async(req, res, next) => {
+    const doc = await Quiz.findById(req.params.id);
+    if (!doc) {
+        return next(new ErrorResponse(`Quiz not found with id of : ${req.params.id} `, 404));
     }
-};
+    res.status(200).json({
+        status: "success",
+        doc,
+    });
+});
 
-exports.updateQuiz = async(req, res, next) => {
-    try {
-        const doc = await Quiz.findByIdAndUpdate(req.params.id, req.body, {
-            new: true,
-            runValidators: true
-        });
-        if (!doc) {
-            return res.status(400).json({
-                status: "flase"
-            })
-        }
-        res.status(200).json({
-            status: "success",
-            doc
-        });
-    } catch (error) {
-        res.status(500).json({
-            status: "fail",
-            message: "some Thing went wrong",
-            error
-        })
+exports.updateQuiz = asyncHandler(async(req, res, next) => {
+    const doc = await Quiz.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true
+    });
+    if (!doc) {
+        return next(new ErrorResponse(`Quiz not found with id of : ${req.params.id} `, 404));
     }
-}
+    res.status(200).json({
+        status: "success",
+        doc
+    });
+})
 
 
-exports.deleteOneQuiz = async(req, res, next) => {
-    try {
-        const doc = await Quiz.findByIdAndDelete(req.params.id);
-
-        if (!doc)
-            return res.status(400).json({
-                status: "fail",
-            });
-
-        res.status(204).json({
-            status: "success",
-            data: null,
-        });
-        next();
-    } catch (error) {
-        res.status(500).json({
-            status: "fail",
-            message: "Some Thing went wrong",
-            error,
-        });
+exports.deleteOneQuiz = asyncHandler(async(req, res, next) => {
+    const doc = await Quiz.findByIdAndDelete(req.params.id);
+    if (!doc) {
+        return next(new ErrorResponse(`Quiz not found with id of : ${req.params.id} `, 404));
     }
-};
+    res.status(204).json({
+        status: "success",
+        data: null,
+    });
+});

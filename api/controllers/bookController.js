@@ -1,45 +1,26 @@
 const Book = require('../models/bookModel');
+const ErrorResponse = require("../utils/errorResponse");
+const asyncHandler = require("../utils/asyncHandler");
 
 
-exports.addBook = async(req, res, next) => {
-    try {
-        const doc = await Book.create(req.body);
-        res.status(201).json({
-            status: "success",
-            Book: {
-                doc,
-            },
-        });
-    } catch (error) {
-        res.status(500).json({
-            status: "fail",
-            message: "Some Thing went wrong",
-            error,
-        });
-    }
+exports.addBook = asyncHandler(async(req, res, next) => {
+    const doc = await Book.create(req.body);
+    res.status(201).json({
+        status: "success",
+        Book: {
+            doc,
+        },
+    });
+});
+
+exports.getAllBook = asyncHandler(async(req, res, next) => {
+    const doc = await Book.find();
+    res.status(200).json({
+        status: "success",
+        Book: {
+            doc,
+        },
+    });
     next();
-};
 
-exports.getAllBook = async(req, res, next) => {
-    try {
-        const doc = await Book.find();
-
-        if (!doc)
-            return res.status(400).json({
-                status: "fail"
-            });
-        res.status(200).json({
-            status: "success",
-            Book: {
-                doc,
-            },
-        });
-        next();
-    } catch (error) {
-        res.status(500).json({
-            status: "fail",
-            message: "Some Thing went wrong",
-            error,
-        });
-    }
-};
+});
