@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 
 
 const errorHandler = require('./api/controllers/errorController');
+const errorResponse = require('./api/utils/errorResponse');
 const quizRoute = require('./api/routes/quizRoute');
 const bookRoute = require('./api/routes/bookRoute');
 const classRoute = require('./api/routes/classRoute');
@@ -48,10 +49,9 @@ app.use('/api/v1/teacher', teacherRoute);
 
 
 // Unhandled routes
-// FIXME: Send (Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client) to console 
-// app.all('*', (req, res, next) => {
-//     next(new errorResponse(`Cant't find ${req.originalUrl} on this server!`, 404));
-// });
+app.all('*', (req, res, next) => {
+    next(new errorResponse(`Cant't find ${req.originalUrl} on this server!`, 404));
+});
 
 // use global handler Middleware for handel errors
 app.use(errorHandler);
