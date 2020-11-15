@@ -47,3 +47,11 @@
     * login use google
     * push notification
     * time table of class | only teacher can add
+* Admin : 
+    * crud student
+    * crud teacher
+    * send email and sms
+    * paginatin and sort and filter filed for page of we show details of system
+    * user and teacher after they signup they can not go to class when admin accsept
+    * teachers user can only add with admin panel
+    * book can add only by admin
