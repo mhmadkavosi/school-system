@@ -4,6 +4,7 @@ const classController = require('../controllers/classController');
 
 const router = express.Router();
 
+// TODO : get student for class /studentId/class : 7 video of api master class
 
 router
     .route('/')
