@@ -23,12 +23,23 @@ const classSchema = new mongoose.Schema({
         default: Date.now()
     },
     status: Boolean, // set for active or inActive of class | show in frontEnd
-    slug: String
+    slug: String,
+    studentCount: {
+        type: Number,
+        default: 0
+    }
 });
 
 // Create class slug from name 
 classSchema.pre('save', function(next) {
     this.slug = slugify(this.name, { lower: true });
+    next();
+});
+
+// Create count of student for class base on all student is into class
+// TODO : check for this if work afer we send request and when we add a new student in class when we add other student
+classSchema.pre('save', function(next) {
+    this.studentCount += this.classStudents.count;
     next();
 });
 
