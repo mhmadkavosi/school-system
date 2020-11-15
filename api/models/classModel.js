@@ -39,7 +39,7 @@ classSchema.pre('save', function(next) {
 // Create count of student for class base on all student is into class
 // TODO : check for this if work afer we send request and when we add a new student in class when we add other student
 classSchema.pre('save', function(next) {
-    this.studentCount += this.classStudents.count;
+    this.studentCount += this.classStudents.length;
     next();
 });
 
