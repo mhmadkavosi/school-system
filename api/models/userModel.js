@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const teacherSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     fristName: String,
     lastName: String,
     fatherName: String,
@@ -8,6 +8,11 @@ const teacherSchema = new mongoose.Schema({
     gender: {
         type: String,
         enum: ['male', 'female']
+    },
+    role: {
+        type: String,
+        enum: ['student', 'teacher', 'admin'],
+        default: "student"
     },
     email: {
         type: String,
@@ -38,6 +43,6 @@ const teacherSchema = new mongoose.Schema({
 });
 
 
-const Teacher = mongoose.model("Teacher", teacherSchema);
+const User = mongoose.model("user", userSchema);
 
-module.exports = Teacher;
+module.exports = User;
