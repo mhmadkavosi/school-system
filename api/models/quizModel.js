@@ -44,7 +44,7 @@ const quizSchema = new mongoose.Schema({
 
 // add slug for quiz
 quizSchema.pre('save', function(next) {
-    this.slug = slugify(this.name, { lower: true });
+    this.slug = slugify(this.quizName, { lower: true });
     next();
 })
 
