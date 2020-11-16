@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 
 const bookSchema = new mongoose.Schema({
-    bookName: String,
+    bookName: {
+        type: String,
+        tritm: true,
+        required: [true, 'Book must have a name']
+    },
     images: {
         type: [String],
         default: "no-photo.jpg"
