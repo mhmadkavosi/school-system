@@ -22,7 +22,11 @@ const classSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    status: Boolean, // set for active or inActive of class | show in frontEnd
+    // set for active or inActive of class | show in frontEnd
+    status: {
+        type: Boolean,
+        default: true
+    },
     slug: String,
     studentCount: {
         type: Number,
