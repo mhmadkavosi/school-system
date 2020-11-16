@@ -5,11 +5,11 @@ const classSchema = new mongoose.Schema({
     className: String,
     classTeacher: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Teacher'
+        ref: 'User'
     },
     classStudents: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Student'
+        ref: 'User'
     }],
     classBook: {
         type: mongoose.Schema.Types.ObjectId,
