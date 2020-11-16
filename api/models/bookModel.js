@@ -11,6 +11,7 @@ const bookSchema = new mongoose.Schema({
         default: "no-photo.jpg"
     },
     description: String,
+    // TODO make a grade for books
 });
 
 
