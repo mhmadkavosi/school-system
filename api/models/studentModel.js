@@ -27,7 +27,7 @@ const studentSchema = new mongoose.Schema({
         default: true,
         select: false
     },
-    classHistory: [String],
+    //classHistory: [String],
     created_at: {
         type: Date,
         default: Date.now()
