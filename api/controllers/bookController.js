@@ -21,6 +21,31 @@ exports.getAllBook = asyncHandler(async(req, res, next) => {
             doc,
         },
     });
-    next();
-
 });
+
+
+exports.updateBook = asyncHandler(async(req, res, next) => {
+    const doc = await Book.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true
+    });
+    if (!doc) {
+        return next(new ErrorResponse(`Book not found with id of : ${req.params.id} `, 404));
+    }
+    res.status(200).json({
+        status: "success",
+        doc
+    });
+})
+
+
+exports.deleteOneBook = asyncHandler(async(req, res, next) => {
+    const doc = await Book.findByIdAndDelete(req.params.id);
+    if (!doc) {
+        return next(new ErrorResponse(`Book not found with id of : ${req.params.id} `, 404));
+    }
+    res.status(204).json({
+        status: "success",
+        data: null,
+    });
+})
