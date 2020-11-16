@@ -35,39 +35,28 @@ exports.getOneClass = asyncHandler(async(req, res, next) => {
 
 });
 
-exports.updateClass = async(req, res, next) => {
-    try {
-        const doc = await Class.findByIdAndUpdate(req.params.id, req.body, {
-            new: true,
-            runValidators: true
-        });
-        if (!doc) {
-            return next(new ErrorRespons(`Class not found with id of : ${req.params.id} `, 404));
-        }
-        res.status(200).json({
-            status: "success",
-            doc
-        });
-    } catch (err) {
-        next(err);
+exports.updateClass = asyncHandler(async(req, res, next) => {
+    const doc = await Class.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true
+    });
+    if (!doc) {
+        return next(new ErrorRespons(`Class not found with id of : ${req.params.id} `, 404));
     }
-}
+    res.status(200).json({
+        status: "success",
+        doc
+    });
+})
 
 
-exports.deleteOneClass = async(req, res, next) => {
-    try {
-        const doc = await Class.findByIdAndDelete(req.params.id);
-
-        if (!doc) {
-            return next(new ErrorRespons(`Class not found with id of : ${req.params.id} `, 404));
-        }
-
-        res.status(204).json({
-            status: "success",
-            data: null,
-        });
-        next();
-    } catch (err) {
-        next(err);
+exports.deleteOneClass = asyncHandler(async(req, res, next) => {
+    const doc = await Class.findByIdAndDelete(req.params.id);
+    if (!doc) {
+        return next(new ErrorRespons(`Class not found with id of : ${req.params.id} `, 404));
     }
-};
+    res.status(204).json({
+        status: "success",
+        data: null,
+    });
+});
