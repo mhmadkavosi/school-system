@@ -23,7 +23,7 @@ exports.getAllBook = asyncHandler(async(req, res, next) => {
     });
 });
 
-exports.geOneBook = asyncHandler(async(req, res, next) => {
+exports.getOneBook = asyncHandler(async(req, res, next) => {
     const doc = await Book.findById(req.params.id);
     if (!doc) {
         return next(new ErrorRespons(`Book not found with id of : ${req.params.id} `, 404));
