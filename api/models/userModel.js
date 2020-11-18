@@ -19,8 +19,11 @@ const userSchema = new mongoose.Schema({
         unique: true
     },
     phoneNumber: {
-        type: Number, // TODO set it for valid phoneNmber
-        unique: true
+        type: String,
+        trim: true,
+        unique: true,
+        // validate phone number : 9183219403 , 0918234954
+        match: [/(0|\+98)?([ ]|,|-|[()]){0,2}9[1|2|3|4]([ ]|,|-|[()]){0,2}(?:[0-9]([ ]|,|-|[()]){0,2}){8}/, 'Please enter valid phone number']
     },
     natilonalNumber: {
         type: Number, // TODO set it for valid natilonalNumber 
