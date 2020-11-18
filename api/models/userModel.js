@@ -25,9 +25,12 @@ const userSchema = new mongoose.Schema({
         // validate phone number : 9183219403 , 0918234954
         match: [/(0|\+98)?([ ]|,|-|[()]){0,2}9[1|2|3|4]([ ]|,|-|[()]){0,2}(?:[0-9]([ ]|,|-|[()]){0,2}){8}/, 'Please enter valid phone number']
     },
-    natilonalNumber: {
-        type: Number, // TODO set it for valid natilonalNumber 
-        unique: true
+    nationalCode: {
+        type: Number,
+        trim: true,
+        unique: true,
+        // validate natilonalCode : start with 0 and just 10 char
+        match: [/^0\d{10}$/, 'Please enter a valid nationalCode']
     },
     images: {
         type: [String],
