@@ -17,7 +17,8 @@ exports.getAllUser = asyncHandler(async(req, res, next) => {
     const doc = await User.find();
     res.status(200).json({
         status: "success",
-        User: {
+        count: doc.length,
+        Useres: {
             doc,
         },
     });

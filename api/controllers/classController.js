@@ -17,7 +17,8 @@ exports.getAllClass = asyncHandler(async(req, res, next) => {
     const doc = await Class.find().populate('classTeacher classStudents classBook');
     res.status(200).json({
         status: "success",
-        Class: {
+        count: doc.length,
+        Classes: {
             doc,
         },
     });
