@@ -10,13 +10,22 @@ exports.addQuiz = asyncHandler(async(req, res, next) => {
             doc,
         },
     });
-    next();
 });
 
 exports.getAllQuiz = asyncHandler(async(req, res, next) => {
-    const doc = await Quiz.find();
+    let query;
+
+    if (req.params.classId) {
+        query = Quiz.find({ class: req.params.classid });
+    } else {
+        query = Quiz.find();
+    }
+
+    const doc = await query;
+    // const doc = await Quiz.find();
     res.status(200).json({
         status: "success",
+        count: doc.length,
         Quiz: {
             doc,
         },

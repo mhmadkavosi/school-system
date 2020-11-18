@@ -2,7 +2,7 @@ const express = require('express');
 
 const quizController = require('../controllers/quizController');
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 
 router

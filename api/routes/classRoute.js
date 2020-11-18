@@ -2,9 +2,14 @@ const express = require('express');
 
 const classController = require('../controllers/classController');
 
+// include Other resource
+const quizRoute = require('./quizRoute');
+
 const router = express.Router();
 
 // TODO : get student for class /studentId/class : 7 video of api master class
+
+router.use('/:classId/quiz', quizRoute);
 
 router
     .route('/')
