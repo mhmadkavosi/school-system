@@ -16,7 +16,7 @@ exports.getAllQuiz = asyncHandler(async(req, res, next) => {
     let query;
 
     if (req.params.classId) {
-        query = Quiz.find({ class: req.params.classid });
+        query = Quiz.find({ quizClass: req.params.classid });
     } else {
         query = Quiz.find();
     }
@@ -30,7 +30,6 @@ exports.getAllQuiz = asyncHandler(async(req, res, next) => {
             doc,
         },
     });
-    next();
 });
 
 exports.getOneQuiz = asyncHandler(async(req, res, next) => {
