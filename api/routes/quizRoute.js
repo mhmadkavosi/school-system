@@ -2,6 +2,7 @@ const express = require('express');
 
 const quizController = require('../controllers/quizController');
 
+// Merge paras for quiz of a class => /api/v1/class/quizId/quiz
 const router = express.Router({ mergeParams: true });
 
 
