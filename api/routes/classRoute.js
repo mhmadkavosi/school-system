@@ -7,7 +7,7 @@ const quizRoute = require('./quizRoute');
 
 const router = express.Router();
 
-// TODO : get student for class /studentId/class : 7 video of api master class
+// use global Middleware for router for get quiz of one class => /api/v1/class/classId/quiz
 
 router.use('/:classId/quiz', quizRoute);
 

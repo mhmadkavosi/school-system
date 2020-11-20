@@ -3,6 +3,10 @@ const asyncHandler = require('./../utils/asyncHandler');
 const Class = require('../models/classModel');
 
 
+
+// @desc    add class
+// @route   /api/v1/class  POST
+// @access  private{Admin}
 exports.addClass = asyncHandler(async(req, res, next) => {
     const doc = await Class.create(req.body);
     res.status(201).json({
@@ -13,6 +17,10 @@ exports.addClass = asyncHandler(async(req, res, next) => {
     });
 });
 
+
+// @desc    Get all class
+// @route   /api/v1/class  get
+// @access  private{Admin}
 exports.getAllClass = asyncHandler(async(req, res, next) => {
     const doc = await Class.find().populate('classTeacher classStudents classBook');
     res.status(200).json({
@@ -24,6 +32,10 @@ exports.getAllClass = asyncHandler(async(req, res, next) => {
     });
 });
 
+
+// @desc    get class
+// @route   /api/v1/class/id GET
+// @access  private{Admin,Teacher,Student}
 exports.getOneClass = asyncHandler(async(req, res, next) => {
     const doc = await Class.findById(req.params.id);
     if (!doc) {
@@ -36,6 +48,10 @@ exports.getOneClass = asyncHandler(async(req, res, next) => {
 
 });
 
+
+// @desc    update class
+// @route   /api/v1/class/id  PATCH
+// @access  private{Admin,Teacher}
 exports.updateClass = asyncHandler(async(req, res, next) => {
     const doc = await Class.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
@@ -51,6 +67,10 @@ exports.updateClass = asyncHandler(async(req, res, next) => {
 })
 
 
+
+// @desc    delete class
+// @route   /api/v1/class/id  DELETE
+// @access  private{Admin}
 exports.deleteOneClass = asyncHandler(async(req, res, next) => {
     const doc = await Class.findByIdAndDelete(req.params.id);
     if (!doc) {
