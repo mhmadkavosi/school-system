@@ -22,7 +22,10 @@ exports.addClass = asyncHandler(async(req, res, next) => {
 // @route   /api/v1/class  get
 // @access  private{Admin}
 exports.getAllClass = asyncHandler(async(req, res, next) => {
-    const doc = await Class.find().populate('classTeacher classStudents classBook');
+    const doc = await Class.find().populate({
+        path: 'classBook classTeacher classStudents',
+        select: 'bookName fristName lastName gender phoneNumber'
+    });
     res.status(200).json({
         status: "success",
         count: doc.length,
@@ -37,7 +40,10 @@ exports.getAllClass = asyncHandler(async(req, res, next) => {
 // @route   /api/v1/class/id GET
 // @access  private{Admin,Teacher,Student}
 exports.getOneClass = asyncHandler(async(req, res, next) => {
-    const doc = await Class.findById(req.params.id);
+    const doc = await Class.findById(req.params.id).populate({
+        path: 'classBook classTeacher classStudents',
+        select: 'bookName fristName lastName gender fatherName phoneNumber nationalCode images'
+    });;
     if (!doc) {
         return next(new ErrorRespons(`Class not found with id of : ${req.params.id} `, 404));
     }
