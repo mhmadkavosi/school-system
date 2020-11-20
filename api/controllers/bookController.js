@@ -3,6 +3,9 @@ const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../utils/asyncHandler");
 
 
+// @desc    Add book
+// @route   /api/v1/book POST
+// @access  Privete {Admin}
 exports.addBook = asyncHandler(async(req, res, next) => {
     const doc = await Book.create(req.body);
     res.status(201).json({
@@ -13,6 +16,10 @@ exports.addBook = asyncHandler(async(req, res, next) => {
     });
 });
 
+
+// @desc    Get All book
+// @route   /api/v1/book GET
+// @access  private {Admin,Teacher}
 exports.getAllBook = asyncHandler(async(req, res, next) => {
     const doc = await Book.find();
     res.status(200).json({
@@ -23,6 +30,10 @@ exports.getAllBook = asyncHandler(async(req, res, next) => {
     });
 });
 
+
+// @desc    Get One book
+// @route   /api/v1/book GET
+// @access  private{Admin,Teacher,Student}
 exports.getOneBook = asyncHandler(async(req, res, next) => {
     const doc = await Book.findById(req.params.id);
     if (!doc) {
@@ -34,6 +45,10 @@ exports.getOneBook = asyncHandler(async(req, res, next) => {
     });
 })
 
+
+// @desc    Update Book
+// @route   /api/v1/book PATCH
+// @access  private{Admin}
 exports.updateBook = asyncHandler(async(req, res, next) => {
     const doc = await Book.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
@@ -49,6 +64,9 @@ exports.updateBook = asyncHandler(async(req, res, next) => {
 })
 
 
+// @desc    delete Book
+// @route   /api/v1/book  DELETE
+// @access  private{Admin}
 exports.deleteOneBook = asyncHandler(async(req, res, next) => {
     const doc = await Book.findByIdAndDelete(req.params.id);
     if (!doc) {
