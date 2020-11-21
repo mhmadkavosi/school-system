@@ -1,11 +1,20 @@
 const Quiz = require("../models/quizModel");
+const Class = require("../models/classModel");
 const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../utils/asyncHandler");
 
 // @desc    Add Quiz for class 
-// @route   /api/v1/quiz POST
+// @route   /api/v1/quiz /api/v1/class/classId/quiz POST
 // @access  Privete{Admin,Teacher}
 exports.addQuiz = asyncHandler(async(req, res, next) => {
+    req.body.quizClass = req.params.classId;
+
+    const classes = await Class.findById(req.params.classId);
+
+    if (!classes) {
+        return next(`class not found with id of : ${req.params.classId} `, 404)
+    }
+
     const doc = await Quiz.create(req.body);
     res.status(201).json({
         status: "success",
@@ -23,13 +32,13 @@ exports.getAllQuiz = asyncHandler(async(req, res, next) => {
     let query;
 
     if (req.params.classId) {
-        query = Quiz.find({ quizClass: req.params.classid });
+        query = Quiz.find({ quizClass: req.params.classId });
     } else {
         query = Quiz.find();
     }
 
     const doc = await query;
-    // const doc = await Quiz.find();
+    console.log(doc)
     res.status(200).json({
         status: "success",
         count: doc.length,
