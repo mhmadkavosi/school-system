@@ -19,6 +19,9 @@ const app = express();
 app.use(express.json());
 app.use(morgan('dev'));
 
+// TODO : image Upload : After FrontEnd
+// TODO : handle static file : After FrontEnd
+// TODO : quiz functionality : After FrontEnd
 // Conect to the database
 const db = process.env.LOCAL_DATABASE;
 

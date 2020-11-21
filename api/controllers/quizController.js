@@ -38,7 +38,6 @@ exports.getAllQuiz = asyncHandler(async(req, res, next) => {
     }
 
     const doc = await query;
-    console.log(doc)
     res.status(200).json({
         status: "success",
         count: doc.length,
