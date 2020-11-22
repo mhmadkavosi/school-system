@@ -25,6 +25,7 @@ const errorHandler = (err, req, res, next) => {
         const message = Object.values(err.errors).map(val => val.message);
         error = new ErrorRespons(message, 400);
     }
+    console.log(error);
     res.status(error.statusCode || 500).json({
         status: false,
         error: error.message || "Server Error"
