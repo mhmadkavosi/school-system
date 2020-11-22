@@ -43,7 +43,7 @@ exports.getOneClass = asyncHandler(async(req, res, next) => {
     const doc = await Class.findById(req.params.id).populate({
         path: 'classBook classTeacher classStudents',
         select: 'bookName fristName lastName gender fatherName phoneNumber nationalCode images'
-    });;
+    });
     if (!doc) {
         return next(new ErrorRespons(`Class not found with id of : ${req.params.id} `, 404));
     }
