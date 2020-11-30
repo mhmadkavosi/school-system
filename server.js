@@ -10,6 +10,7 @@ const quizRoute = require('./api/routes/quizRoute');
 const bookRoute = require('./api/routes/bookRoute');
 const classRoute = require('./api/routes/classRoute');
 const userRoute = require('./api/routes/userRoute');
+const authRoute = require('./api/routes/authRoute');
 
 dotenv.config({ path: "./config.env" });
 
@@ -47,6 +48,7 @@ app.use('/api/v1/quiz', quizRoute);
 app.use('/api/v1/book', bookRoute);
 app.use('/api/v1/class', classRoute);
 app.use('/api/v1/user', userRoute);
+app.use('/api/v1/auth', authRoute);
 
 
 // Unhandled routes
