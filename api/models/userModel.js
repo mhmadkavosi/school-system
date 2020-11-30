@@ -75,6 +75,11 @@ userSchema.methods.getSignedJwtToken = function () {
     });
 }
 
+userSchema.methods.matchPassword = async function (entredPassword) {
+    return await bcrypt.compare(entredPassword, this.password);
+}
+
+
 const User = mongoose.model("User", userSchema);
 
 module.exports = User;
