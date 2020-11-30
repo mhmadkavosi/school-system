@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required : [true,'Please add a name']    
+    },
     fristName: String,
     lastName: String,
     fatherName: String,
@@ -16,8 +20,17 @@ const userSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        unique: true
+        unique: true,
+        required: [true, 'Please add a email'],
     },
+    password: {
+        type: String,
+        minlength: 8,
+        required: [true, 'Please add a password'],
+        select: false
+    },
+    restPasswordToken: String,
+    restPasswordDate : Date,
     phoneNumber: {
         type: String,
         trim: true,
@@ -42,10 +55,11 @@ const userSchema = new mongoose.Schema({
         select: false
     },
     //classHistory: [String],
-    created_at: {
-        type: Date,
-        default: Date.now()
+},
+    {
+        timestamps:true
     }
+);
 });
 
 
