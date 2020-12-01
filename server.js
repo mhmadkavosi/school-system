@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-
+const cookie_parser =  require('cookie-parser');
 
 const errorHandler = require('./api/controllers/errorController');
 const errorResponse = require('./api/utils/errorResponse');
@@ -19,6 +19,7 @@ const app = express();
 //  Middlewares
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(cookie_parser());
 
 // TODO : image Upload : After FrontEnd
 // TODO : handle static file : After FrontEnd
