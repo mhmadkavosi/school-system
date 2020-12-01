@@ -1,7 +1,7 @@
 const express = require('express');
 
 const classController = require('../controllers/classController');
-
+const {protect} = require('../controllers/authController');
 // include Other resource
 const quizRoute = require('./quizRoute');
 
@@ -13,14 +13,14 @@ router.use('/:classId/quiz', quizRoute);
 
 router
     .route('/')
-    .get(classController.getAllClass)
-    .post(classController.addClass);
+    .get(protect,classController.getAllClass)
+    .post(protect,classController.addClass);
 
 router
     .route('/:id')
-    .get(classController.getOneClass)
-    .delete(classController.deleteOneClass)
-    .patch(classController.updateClass);
+    .get(protect,classController.getOneClass)
+    .delete(protect,classController.deleteOneClass)
+    .patch(protect,classController.updateClass);
 
 
 module.exports = router;

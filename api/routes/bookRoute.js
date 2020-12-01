@@ -7,14 +7,14 @@ const router = express.Router();
 
 router
     .route('/')
-    .get(bookController.getAllBook)
-    .post(bookController.addBook);
+    .get(protect,bookController.getAllBook)
+    .post(protect,bookController.addBook);
 
 router
     .route('/:id')
-    .get(bookController.getOneBook)
-    .delete(bookController.deleteOneBook)
-    .patch(bookController.updateBook);
+    .get(protect,bookController.getOneBook)
+    .delete(protect,bookController.deleteOneBook)
+    .patch(protect,bookController.updateBook);
 
 
 module.exports = router;
