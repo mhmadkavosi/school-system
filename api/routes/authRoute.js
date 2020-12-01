@@ -8,6 +8,10 @@ router
     .post(authController.register);
 router
     .route('/login')
-    .post(authController.login)
+    .post(authController.login);
+
+router
+    .route('/me')
+    .get(authController.protect,authController.getMe);
 
 module.exports = router;
