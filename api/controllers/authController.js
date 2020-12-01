@@ -101,3 +101,12 @@ exports.protect = asyncHandler(async (req, res, next) => {
         return next(new ErrorResponse('Not Authorize to access this route', 401));
     }
 });
+
+// @desc Get current logged in user
+// @route GET /api/v1/auth/me
+// @access Privete
+exports.getMe = asyncHandler(async (req, res, next) => {
+    const user = await User.findById(req.user.id);
+
+    res.status(200).json({ success: true, data: user });
+})
