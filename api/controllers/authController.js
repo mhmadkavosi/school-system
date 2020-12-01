@@ -110,3 +110,16 @@ exports.getMe = asyncHandler(async (req, res, next) => {
 
     res.status(200).json({ success: true, data: user });
 })
+
+
+// Grant access to specific roles 
+exports.authorize = (...role) => {
+    return (req, res, next) => {
+        if (!role.includes(req.user.role)) {
+            return next(new ErrorResponse(
+                `User role '${req.user.role}' is not authorized to access this route`
+                , 403));
+        }
+        next();
+    }
+}
