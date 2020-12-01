@@ -1,6 +1,7 @@
-const ErrorRespons = require('../utils/errorResponse');
+const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../utils/asyncHandler');
 const User = require('../models/userModel');
+const jwt = require('jsonwebtoken');
 
 // @desc Register User 
 // @route   /api/v1/auth/register POST
@@ -68,3 +69,35 @@ const sendTokenResponse = (user, statusCode, res) => {
         .cookie('token', token, options)
         .json({ success: true, token });
 }
+
+// Protect routes 
+
+exports.protect = asyncHandler(async (req, res, next) => {
+
+    let token;
+
+    if (
+        req.headers.authorization &&
+        req.headers.authorization.startsWith('Bearer')
+    ) {
+        token = req.headers.authorization.split(' ')[1];
+    }
+
+
+    // make sure token is exists
+
+    if (!token) {
+        return next(new ErrorResponse('Not Authorize to access this route', 401));
+    }
+
+    try {
+        // Veryfiy token
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+        req.user = await User.findById(decoded.id);
+
+        next();
+    } catch (err) {
+        return next(new ErrorResponse('Not Authorize to access this route', 401));
+    }
+});
