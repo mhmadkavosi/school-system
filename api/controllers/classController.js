@@ -58,7 +58,8 @@ exports.getOneClass = asyncHandler(async(req, res, next) => {
 // @desc    update class
 // @route   /api/v1/class/id  PATCH
 // @access  private{Admin,Teacher}
-exports.updateClass = asyncHandler(async(req, res, next) => {
+exports.updateClass = asyncHandler(async (req, res, next) => {
+    req.body.classTeacher = req.user.id;
     const doc = await Class.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
         runValidators: true
