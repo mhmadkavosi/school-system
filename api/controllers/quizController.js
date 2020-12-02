@@ -14,7 +14,7 @@ exports.addQuiz = asyncHandler(async(req, res, next) => {
     if (!classes) {
         return next(`class not found with id of : ${req.params.classId} `, 404)
     }
-
+    req.body.classTeacher = req.user.id;
     const doc = await Quiz.create(req.body);
     res.status(201).json({
         status: "success",
@@ -36,7 +36,6 @@ exports.getAllQuiz = asyncHandler(async(req, res, next) => {
     } else {
         query = Quiz.find();
     }
-
     const doc = await query;
     res.status(200).json({
         status: "success",
@@ -65,7 +64,7 @@ exports.getOneQuiz = asyncHandler(async(req, res, next) => {
 // @desc    Update quiz
 // @route   /api/v1/quiz/id Patch
 // @access  Privete{Admin,Teacher}
-exports.updateQuiz = asyncHandler(async(req, res, next) => {
+exports.updateQuiz = asyncHandler(async (req, res, next) => {
     const doc = await Quiz.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
         runValidators: true
