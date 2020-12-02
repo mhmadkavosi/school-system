@@ -36,11 +36,11 @@ const quizSchema = new mongoose.Schema({
         },
 
     }],
-    created_at: {
-        type: Date,
-        default: Date.now()
+},
+    {
+        timestamps:true
     }
-});
+);
 
 // add slug for quiz
 quizSchema.pre('save', function(next) {

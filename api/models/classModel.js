@@ -18,17 +18,17 @@ const classSchema = new mongoose.Schema({
     // quizHistory: [String], // TODO make a method for class to have a page for history of quizes 
     startDate: Date,
     endDate: Date,
-    created_at: {
-        type: Date,
-        default: Date.now()
-    },
     // set for active or inActive of class | show in frontEnd
     status: {
         type: Boolean,
         default: true
     },
     slug: String,
-});
+},
+    {
+        timestamps:true
+    }
+);
 
 // Create class slug from name
 classSchema.pre('save', function(next) {

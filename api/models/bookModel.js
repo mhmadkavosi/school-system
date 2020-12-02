@@ -12,7 +12,11 @@ const bookSchema = new mongoose.Schema({
     },
     description: String,
     // TODO make a grade for books
-});
+},
+    {
+        timestamps:true
+    }
+);
 
 
 const Book = mongoose.model("Book", bookSchema);
