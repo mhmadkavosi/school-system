@@ -59,14 +59,26 @@ exports.getOneClass = asyncHandler(async(req, res, next) => {
 // @route   /api/v1/class/id  PATCH
 // @access  private{Admin,Teacher}
 exports.updateClass = asyncHandler(async (req, res, next) => {
-    req.body.classTeacher = req.user.id;
-    const doc = await Class.findByIdAndUpdate(req.params.id, req.body, {
-        new: true,
-        runValidators: true
-    });
+    let doc = await Class.findById(req.params.id);
+    
+
     if (!doc) {
         return next(new ErrorRespons(`Class not found with id of : ${req.params.id} `, 404));
     }
+
+    // make sure user is class owner
+
+    if (doc.classTeacher.toString() !== req.user.id && req.user.role !== 'admin') {
+        return next(new ErrorRespons(`User ${req.user.id} is not authorized to update this class`,
+            401)
+        );
+    }
+    
+    doc = await Class.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true
+    });
+
     res.status(200).json({
         status: "success",
         doc
