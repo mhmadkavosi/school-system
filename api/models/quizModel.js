@@ -1,53 +1,56 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
 
-const quizSchema = new mongoose.Schema({
+const quizSchema = new mongoose.Schema(
+  {
     quizName: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     slug: {
-        type: String
+      type: String,
     },
     quizClass: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Class'
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Class',
     },
-    quizQuestions: [{
+    quizQuestions: [
+      {
         question: {
-            type: String,
-            required: [true, 'Question can not be empty'],
+          type: String,
+          required: [true, 'Question can not be empty'],
         },
-        answers: [{
+        answers: [
+          {
             text: {
-                type: String,
-                required: true,
-                trim: true
+              type: String,
+              required: true,
+              trim: true,
             },
             isCorrect: {
-                type: Boolean,
-                required: true,
-                default: false
-            }
-        }],
+              type: Boolean,
+              required: true,
+              default: false,
+            },
+          },
+        ],
         score: {
-            type: String,
-            required: [true, 'Question can not be with out score'],
+          type: String,
+          required: [true, 'Question can not be with out score'],
         },
-
-    }],
-},
-    {
-        timestamps:true
-    }
+      },
+    ],
+  },
+  {
+    timestamps: true,
+  }
 );
 
 // add slug for quiz
-quizSchema.pre('save', function(next) {
-    this.slug = slugify(this.quizName, { lower: true });
-    next();
-})
-
+quizSchema.pre('save', function (next) {
+  this.slug = slugify(this.quizName, { lower: true });
+  next();
+});
 
 const Quiz = mongoose.model('Quiz', quizSchema);
 

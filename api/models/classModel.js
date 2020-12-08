@@ -1,42 +1,44 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
 
-const classSchema = new mongoose.Schema({
+const classSchema = new mongoose.Schema(
+  {
     className: String,
     classTeacher: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
     },
-    classStudents: [{
+    classStudents: [
+      {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    }],
+        ref: 'User',
+      },
+    ],
     classBook: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Book'
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Book',
     },
-    // quizHistory: [String], // TODO make a method for class to have a page for history of quizes 
+    // quizHistory: [String], // TODO make a method for class to have a page for history of quizes
     startDate: Date,
     endDate: Date,
     // set for active or inActive of class | show in frontEnd
     status: {
-        type: Boolean,
-        default: true
+      type: Boolean,
+      default: true,
     },
     slug: String,
-},
-    {
-        timestamps:true
-    }
+  },
+  {
+    timestamps: true,
+  }
 );
 
 // Create class slug from name
-classSchema.pre('save', function(next) {
-    this.slug = slugify(this.className, { lower: true });
-    next();
+classSchema.pre('save', function (next) {
+  this.slug = slugify(this.className, { lower: true });
+  next();
 });
 
-
-const Class = mongoose.model("Class", classSchema);
+const Class = mongoose.model('Class', classSchema);
 
 module.exports = Class;

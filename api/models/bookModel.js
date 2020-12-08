@@ -1,24 +1,24 @@
 const mongoose = require('mongoose');
 
-const bookSchema = new mongoose.Schema({
+const bookSchema = new mongoose.Schema(
+  {
     bookName: {
-        type: String,
-        tritm: true,
-        required: [true, 'Book must have a name']
+      type: String,
+      tritm: true,
+      required: [true, 'Book must have a name'],
     },
     images: {
-        type: [String],
-        default: "no-photo.jpg"
+      type: [String],
+      default: 'no-photo.jpg',
     },
     description: String,
     // TODO make a grade for books
-},
-    {
-        timestamps:true
-    }
+  },
+  {
+    timestamps: true,
+  }
 );
 
-
-const Book = mongoose.model("Book", bookSchema);
+const Book = mongoose.model('Book', bookSchema);
 
 module.exports = Book;
