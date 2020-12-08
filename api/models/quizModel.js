@@ -14,6 +14,10 @@ const quizSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Class',
     },
+    quizTeacher: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
     quizQuestions: [
       {
         question: {
