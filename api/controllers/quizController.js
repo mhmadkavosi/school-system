@@ -119,12 +119,27 @@ exports.updateQuiz = asyncHandler(async (req, res, next) => {
 // @route   /api/v1/quiz/id Delete
 // @access  Privete{Admin,Teacher}
 exports.deleteOneQuiz = asyncHandler(async (req, res, next) => {
-  const doc = await Quiz.findByIdAndDelete(req.params.id);
+  let doc = await Quiz.findById(req.params.id);
+
   if (!doc) {
     return next(
       new ErrorResponse(`Quiz not found with id of : ${req.params.id} `, 404)
     );
   }
+
+  // make sure user is class owner
+
+  if (doc.quizTeacher.toString() !== req.user.id && req.user.role !== 'admin') {
+    return next(
+      new ErrorResponse(
+        `User ${req.user.id} is not authorized to delete quiz for this class`,
+        401
+      )
+    );
+  }
+
+  doc = await Quiz.findByIdAndDelete(req.params.id);
+
   res.status(204).json({
     status: 'success',
     data: null,
