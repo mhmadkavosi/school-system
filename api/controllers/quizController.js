@@ -8,13 +8,33 @@ const asyncHandler = require('../utils/asyncHandler');
 // @access  Privete{Admin,Teacher}
 exports.addQuiz = asyncHandler(async (req, res, next) => {
   req.body.quizClass = req.params.classId;
+  req.body.quizTeacher = req.user.id;
 
   const classes = await Class.findById(req.params.classId);
 
   if (!classes) {
-    return next(`class not found with id of : ${req.params.classId} `, 404);
+    return next(
+      new ErrorResponse(
+        `class not found with id of : ${req.params.classId} `,
+        404
+      )
+    );
   }
-  req.body.classTeacher = req.user.id;
+
+  // make sure user is class owner
+
+  if (
+    classes.classTeacher.toString() !== req.user.id &&
+    req.user.role !== 'admin'
+  ) {
+    return next(
+      new ErrorResponse(
+        `User ${req.user.id} is not authorized to add a quiz for this class`,
+        401
+      )
+    );
+  }
+
   const doc = await Quiz.create(req.body);
   res.status(201).json({
     status: 'success',
