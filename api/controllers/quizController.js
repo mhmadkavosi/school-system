@@ -85,15 +85,30 @@ exports.getOneQuiz = asyncHandler(async (req, res, next) => {
 // @route   /api/v1/quiz/id Patch
 // @access  Privete{Admin,Teacher}
 exports.updateQuiz = asyncHandler(async (req, res, next) => {
-  const doc = await Quiz.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
-  });
+  let doc = await Quiz.findById(req.params.id);
+
   if (!doc) {
     return next(
       new ErrorResponse(`Quiz not found with id of : ${req.params.id} `, 404)
     );
   }
+
+  // make sure user is class owner
+
+  if (doc.quizTeacher.toString() !== req.user.id && req.user.role !== 'admin') {
+    return next(
+      new ErrorResponse(
+        `User ${req.user.id} is not authorized to update quiz for this class`,
+        401
+      )
+    );
+  }
+
+  doc = await Quiz.findByIdAndUpdate(req.params.id, req.body, {
+    runValidators: true,
+    new: true,
+  });
+
   res.status(200).json({
     status: 'success',
     doc,
