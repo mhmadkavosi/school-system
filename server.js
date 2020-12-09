@@ -2,24 +2,24 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const cookie_parser =  require('cookie-parser');
+const cookieParser = require('cookie-parser');
 
-const errorHandler = require('./api/controllers/errorController');
-const errorResponse = require('./api/utils/errorResponse');
+const ErrorHandler = require('./api/controllers/errorController');
+const ErrorResponse = require('./api/utils/errorResponse');
 const quizRoute = require('./api/routes/quizRoute');
 const bookRoute = require('./api/routes/bookRoute');
 const classRoute = require('./api/routes/classRoute');
 const userRoute = require('./api/routes/userRoute');
 const authRoute = require('./api/routes/authRoute');
 
-dotenv.config({ path: "./config.env" });
+dotenv.config({ path: './config.env' });
 
 const app = express();
 
 //  Middlewares
 app.use(express.json());
 app.use(morgan('dev'));
-app.use(cookie_parser());
+app.use(cookieParser());
 
 // TODO : image Upload : After FrontEnd
 // TODO : handle static file : After FrontEnd
@@ -27,23 +27,22 @@ app.use(cookie_parser());
 // Conect to the database
 const db = process.env.LOCAL_DATABASE;
 
-mongoose.connect(db, {
+mongoose
+  .connect(db, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
     useUnifiedTopology: true,
-    config: { autoIndex: false }
-}).then(() => console.log("Database was successfuly connected....!"));
-
+    config: { autoIndex: false },
+  })
+  .then(() => console.log('Database was successfuly connected....!'));
 
 // Create server
 const port = process.env.PORT;
 
 app.listen(port, () => {
-    console.log(`App listening on http://localhost:${port}`);
+  console.log(`App listening on http://localhost:${port}`);
 });
-
-
 
 // ROUTEs
 app.use('/api/v1/quiz', quizRoute);
@@ -52,11 +51,12 @@ app.use('/api/v1/class', classRoute);
 app.use('/api/v1/user', userRoute);
 app.use('/api/v1/auth', authRoute);
 
-
 // Unhandled routes
 app.all('*', (req, res, next) => {
-    next(new errorResponse(`Cant't find ${req.originalUrl} on this server!`, 404));
+  next(
+    new ErrorResponse(`Cant't find ${req.originalUrl} on this server!`, 404)
+  );
 });
 
 // use global handler Middleware for handel errors
-app.use(errorHandler);
+app.use(ErrorHandler);
