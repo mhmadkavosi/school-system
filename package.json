@@ -6,7 +6,7 @@
   "author": "Mohammad Kavosi <mhmad.kavosi@gmail.com>",
   "license": "MIT",
   "engines": {
-    "node": "^12"
+    "node": "^15"
   },
   "scripts": {
     "start": "nodemon server.js",
