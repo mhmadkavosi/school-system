@@ -96,6 +96,36 @@ exports.updateDetails = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({ success: true, data: user });
 });
+
+// @desc Update user Password
+// @route PUT /api/v1/auth/updatepassword
+// @access Privete
+exports.updatePassword = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.user.id).select('+password');
+
+  // check current password
+  if (!(await user.matchPassword(req.body.currentPassword))) {
+    return next(new ErrorResponse('Password is incorrect', 401));
+  }
+
+  user.password = req.body.newPassword;
+  await user.save();
+
+  sendTokenResponse(user, 200, res);
+});
+// Grant access to specific roles
+exports.authorize = (...role) => (req, res, next) => {
+  if (!role.includes(req.user.role)) {
+    return next(
+      new ErrorResponse(
+        `User role '${req.user.role}' is not authorized to access this route`,
+        403
+      )
+    );
+  }
+  next();
+};
+
 // @desc Register User
 // @route   /api/v1/auth/register POST
 // @access public
