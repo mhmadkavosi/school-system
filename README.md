@@ -8,3 +8,5 @@
   - Create a quiz for a class
   - Protect routes
   - Handel errors with global error handler
+  - Send Reset Password link with Email
+  - CRUD User for Admin
