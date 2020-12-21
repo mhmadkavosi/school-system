@@ -18,7 +18,7 @@ exports.addBook = asyncHandler(async (req, res, next) => {
 // @desc    Get All book
 // @route   /api/v1/book GET
 // @access  private {Admin,Teacher}
-exports.getAllBook = asyncHandler(async (req, res, next) => {
+exports.getBooks = asyncHandler(async (req, res, next) => {
   const doc = await Book.find();
   res.status(200).json({
     status: 'success',
@@ -31,7 +31,7 @@ exports.getAllBook = asyncHandler(async (req, res, next) => {
 // @desc    Get One book
 // @route   /api/v1/book GET
 // @access  private{Admin,Teacher,Student}
-exports.getOneBook = asyncHandler(async (req, res, next) => {
+exports.getBook = asyncHandler(async (req, res, next) => {
   const doc = await Book.findById(req.params.id);
   if (!doc) {
     return next(
@@ -66,7 +66,7 @@ exports.updateBook = asyncHandler(async (req, res, next) => {
 // @desc    delete Book
 // @route   /api/v1/book  DELETE
 // @access  private{Admin}
-exports.deleteOneBook = asyncHandler(async (req, res, next) => {
+exports.deleteBook = asyncHandler(async (req, res, next) => {
   const doc = await Book.findByIdAndDelete(req.params.id);
   if (!doc) {
     return next(
