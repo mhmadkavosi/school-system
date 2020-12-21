@@ -4,16 +4,17 @@ const bookController = require('../controllers/bookController');
 const { protect, authorize } = require('../controllers/authController');
 
 const router = express.Router();
+router.use(protect);
 
 router
   .route('/')
-  .get(protect, authorize('admin', 'teacher'), bookController.getAllBook)
-  .post(protect, authorize('admin', 'teacher'), bookController.addBook);
+  .get(authorize('admin', 'teacher'), bookController.getBooks)
+  .post(authorize('teacher'), bookController.addBook);
 
 router
   .route('/:id')
-  .get(protect, bookController.getOneBook)
-  .delete(protect, authorize('admin'), bookController.deleteOneBook)
-  .patch(protect, authorize('admin', 'teacher'), bookController.updateBook);
+  .get(bookController.getBook)
+  .delete(authorize('admin'), bookController.deleteBook)
+  .patch(authorize('admin'), bookController.updateBook);
 
 module.exports = router;
