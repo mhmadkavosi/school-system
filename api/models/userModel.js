@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema(
       required: [true, 'Please add a password'],
       select: false,
     },
-    restPasswordToken: String,
+    resetPasswordToken: String,
     resetPasswordExpire: Date,
     phoneNumber: {
       type: String,
@@ -97,7 +97,7 @@ userSchema.methods.getResetPasswordToken = function () {
 
   // Hase token and set to resetPasswordToken field
 
-  this.restPasswordToken = crypto
+  this.resetPasswordToken = crypto
     .createHash('sha256')
     .update(resetToken)
     .digest('hex');
